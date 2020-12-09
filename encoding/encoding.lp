@@ -2,7 +2,7 @@
 #include "./input.lp".
 
 % Move actions
-#include "./action-M.lp".
+#include "./action.lp".
 
 % Goal
 #include "./goal.lp".
