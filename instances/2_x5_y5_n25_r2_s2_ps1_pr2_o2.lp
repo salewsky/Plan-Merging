@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Grid Size X:                      5
-% Grid Size Y:                      3
-% Number of Nodes:                  15
+% Grid Size Y:                      5
+% Number of Nodes:                  25
 % Number of Robots:                 2
 % Number of Shelves:                2
 % Number of Picking Stations:       1
@@ -25,14 +25,24 @@ init(object(node,12),value(at,(2,3))).
 init(object(node,13),value(at,(3,3))).
 init(object(node,14),value(at,(4,3))).
 init(object(node,15),value(at,(5,3))).
+init(object(node,16),value(at,(1,4))).
+init(object(node,17),value(at,(2,4))).
+init(object(node,18),value(at,(3,4))).
+init(object(node,19),value(at,(4,4))).
+init(object(node,20),value(at,(5,4))).
+init(object(node,21),value(at,(1,5))).
+init(object(node,22),value(at,(2,5))).
+init(object(node,23),value(at,(3,5))).
+init(object(node,24),value(at,(4,5))).
+init(object(node,25),value(at,(5,5))).
 
 % Robots
-init(object(robot,1),value(at,(4,3))).
-init(object(robot,2),value(at,(2,3))).
+init(object(robot,1),value(at,(5,1))).
+init(object(robot,2),value(at,(1,5))).
 
 % Shelves
-init(object(shelf,1),value(at,(1,3))).
-init(object(shelf,2),value(at,(5,3))).
+init(object(shelf,1),value(at,(1,5))).
+init(object(shelf,2),value(at,(5,1))).
 
 % Products
 init(object(product,1),value(on,(1,1))).
