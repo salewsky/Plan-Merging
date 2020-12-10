@@ -1,6 +1,7 @@
 # Plans
 
 The plan files look like this:  
-planNR.lp  
+planNr_SubNr.lp  
   
-NR indicates to which instance the plan belongs.
+Nr indicates which instance the plan belongs to.
+SubNr indicates which robot the plan belong to. If there is no SubNr the plan is the merged plan for the whole instance.
