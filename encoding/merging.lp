@@ -15,9 +15,14 @@ position(R,C,T,A) :- move(R,D,T,A), position(R,C',T-1,A), conflict_nr(A), nextto
 position(R,C,T,A) :- position(R,C,T-1,A), not move(R,_,T,A), conflict_nr(A), isRobot(robot(R)), time(T).
 								 
 
+% Neighbouring cells with robots ----------------------------------------------------------------------------------------------------------
+neighbours(N,R,T,A) :- position(R,C,T,A), N == #sum{1, R': position(R',C',T,A)}, C'!=C, nextto(C,_,C').
+
 % Wait if two robots move to the same node ------------------------------------------------------------------------------------------------
-wait(R2,T,A)            :- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
-					       nextto(C1,D1,C), nextto(C2,D2,C), R1<R2.
+wait(R1,T,A)            :- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
+					       nextto(C1,D1,C), nextto(C2,D2,C), neighbours(N1,R1,T-1,A), neighbours(N2,R2,T-1,A), N1<N2.
+wait(R2,T,A)			:- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
+					       nextto(C1,D1,C), nextto(C2,D2,C), neighbours(N1,R1,T-1,A), neighbours(N2,R2,T-1,A), N1==N2, R1<R2.
 move(R,(0,0),T,A+1)     :- wait(R,T,A).
 position(R',C,0,A+1)    :- wait(R,T,A), position(R',C,0,A), isRobot(robot(R')).
 move(R',D,T',A+1)		:- wait(R,T,A), move(R',D,T',A), isRobot(robot(R')), T'<T.
@@ -26,12 +31,14 @@ move(R',D,T',A+1)       :- wait(R,T,A), move(R',D,T',A), R'!=R, T'>=T.
 
 
 % Dodge if two robots switch nodes --------------------------------------------------------------------------------------------------------			  
-dodge(R2,T,A) 		    :- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
-	                       nextto(C1,D1,C2), nextto(C2,D2,C1), R1<R2.
+dodge(R1,T,A) 		    :- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
+	                       nextto(C1,D1,C2), nextto(C2,D2,C1), neighbours(N1,R1,T-1,A), neighbours(N2,R2,T-1,A), N1<N2.
+dodge(R1,T,A) 		    :- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
+	                       nextto(C1,D1,C2), nextto(C2,D2,C1), neighbours(N1,R1,T-1,A), neighbours(N2,R2,T-1,A), N1==N2, R2<R1.
 position(R',C,0,A+1) 	:- dodge(R,T,A), position(R',C,0,A), isRobot(robot(R')). 
 move(R',D,T',A+1)		:- dodge(R,T,A), move(R',D,T',A), isRobot(robot(R')), T'<T.
 
-1{move(R,D',T,A+1) : direction(D'), D'!=D, D'!=(0,0), nextto(C,D',_)}1    :- dodge(R,T,A), move(R,D,T,A), position(R,C,T-1,A+1).
+1{move(R,D',T,A+1) : direction(D'), D'!=D, D'!=(0,0), nextto(C,D',_)}1    :- dodge(R,T,A), move(R,D,T,A), position(R,C,T-1,A).
 
 move(R',D,T',A+1)     	  :- dodge(R,T,A), move(R',D,T',A), R'!=R, T'>=T.
 move(R,D,T+1,A+1)   	  :- dodge(R,T,A), move(R,D,T,A).
@@ -39,15 +46,15 @@ move(R,(DX',DY'),T+2,A+1) :- dodge(R,T,A), move(R,(DX,DY),T,A+1), direction((DX'
 move(R,D,T'+2,A+1)     	  :- dodge(R,T,A), move(R,D,T',A), T'>T.
 
 % Dodge if a robot blocks a node ----------------------------------------------------------------------------------------------------------
-b_dodge(R,T,A) 			:- position(R',C1,T-1,A), move(R',D,T,A), nextto(C1,D,C2), position(R,C1,T-1,A), position(R,C1,T,A).
-position(R',C,0,A+1) 	:- b_dodge(R,T,A), position(R',C,0,A), isRobot(robot(R')).
-move(R',D,T',A+1)		:- b_dodge(R,T,A), move(R',D,T',A), isRobot(robot(R')), T'<T.
+%b_dodge(R,T,A) 			:- position(R',C1,T-1,A), move(R',D,T,A), nextto(C1,D,C2), position(R,C1,T-1,A), position(R,C1,T,A).
+%position(R',C,0,A+1) 	:- b_dodge(R,T,A), position(R',C,0,A), isRobot(robot(R')).
+%move(R',D,T',A+1)		:- b_dodge(R,T,A), move(R',D,T',A), isRobot(robot(R')), T'<T.
 
-1{move(R,D,T,A+1) : direction(D), D!=(0,0), nextto(C,D,_)}1    :- b_dodge(R,T,A), position(R,C,T-1,A+1).
+%1{move(R,D,T,A+1) : direction(D), D!=(0,0), nextto(C,D,_)}1    :- b_dodge(R,T,A), position(R,C,T-1,A).
 
-move(R,(DX,DY),T+1,A+1)	  :- b_dodge(R,T,A), move(R,(DX',DY'),T,A+1), direction((DX,DY)), DX=-DX', DY=-DY'.
-move(R',D,T',A+1)     	  :- b_dodge(R,T,A), move(R',D,T',A), R'!=R, T'>=T.
-move(R,D,T',A+1) 		  :- b_dodge(R,T,A), move(R,D,T',A), T'>T+1.
+%move(R,(DX,DY),T+1,A+1)	  :- b_dodge(R,T,A), move(R,(DX',DY'),T,A+1), direction((DX,DY)), DX=-DX', DY=-DY'.
+%move(R',D,T',A+1)     	  :- b_dodge(R,T,A), move(R',D,T',A), R'!=R, T'>=T.
+%move(R,D,T',A+1) 		  :- b_dodge(R,T,A), move(R,D,T',A), T'>T+1.
 
 
 % Generate merged plan --------------------------------------------------------------------------------------------------------------------
@@ -56,6 +63,3 @@ new_occurs(object(robot,R),action(move,D),T) :- new_move(R,D,T).
 
 % Output ----------------------------------------------------------------------------------------------------------------------------------
 #show new_occurs/3.
-%#show dodge/3.
-%#show position/4.
-%#show move/4.
