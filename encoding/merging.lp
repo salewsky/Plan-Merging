@@ -23,6 +23,8 @@ wait(R1,T,A)            :- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,
 					       nextto(C1,D1,C), nextto(C2,D2,C), free_c(N1,R1,T-1,A), free_c(N2,R2,T-1,A), N1>N2.
 wait(R2,T,A)			:- move(R1,D1,T,A), move(R2,D2,T,A), position(R1,C1,T-1,A), position(R2,C2,T-1,A), conflict_nr(A), 
 					       nextto(C1,D1,C), nextto(C2,D2,C), free_c(N1,R1,T-1,A), free_c(N2,R2,T-1,A), N1==N2, R1<R2.
+wait(R1,T,A) 			:- position(R1,C1,T-1,A), move(R1,D,T,A), nextto(C1,D,C2), position(R2,C2,T-1,A), not move(R2,_,T,A), conflict_nr(A), 
+						   free_c(N1,R1,T-1,A), free_c(N2,R2,T-1,A), N1>N2.
 position(R',C,0,A+1)    :- wait(R,T,A), position(R',C,0,A), isRobot(robot(R')).
 move(R',D,T',A+1)		:- wait(R,T,A), move(R',D,T',A), isRobot(robot(R')), T'<T.
 move(R,D,T'+1,A+1)      :- wait(R,T,A), move(R,D,T',A), T'>=T.
@@ -45,7 +47,8 @@ move(R,(DX',DY'),T+2,A+1) :- dodge(R,T,A), move(R,(DX,DY),T,A+1), direction((DX'
 move(R,D,T'+2,A+1)     	  :- dodge(R,T,A), move(R,D,T',A), T'>T.
 
 % Dodge if a robot blocks a node ----------------------------------------------------------------------------------------------------------
-b_dodge(R,T,A) 			:- position(R',C1,T-1,A), move(R',D,T,A), nextto(C1,D,C2), position(R,C2,T-1,A), not move(R,_,T,A), conflict_nr(A).
+b_dodge(R,T,A) 			:- position(R1,C1,T-1,A), move(R1,D,T,A), nextto(C1,D,C2), position(R2,C2,T-1,A), not move(R2,_,T,A), conflict_nr(A), 
+						   free_c(N1,R1,T-1,A), free_c(N2,R2,T-1,A), N2>N1.
 position(R',C,0,A+1) 	:- b_dodge(R,T,A), position(R',C,0,A), isRobot(robot(R')).
 move(R',D,T',A+1)		:- b_dodge(R,T,A), move(R',D,T',A), isRobot(robot(R')), T'<T.
 
