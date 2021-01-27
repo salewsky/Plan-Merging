@@ -26,22 +26,17 @@ init(object(node,13),value(at,(3,3))).
 init(object(node,14),value(at,(4,3))).
 init(object(node,15),value(at,(5,3))).
 
-% Robots
+% Robot 1
 init(object(robot,1),value(at,(4,3))).
-init(object(robot,2),value(at,(2,3))).
-
-% Shelves
 init(object(shelf,1),value(at,(1,3))).
-init(object(shelf,2),value(at,(5,3))).
-
-% Products
 init(object(product,1),value(on,(1,1))).
-init(object(product,2),value(on,(2,1))).
-
-% Orders
 init(object(order,1),value(pickingStation,1)).
 init(object(order,1),value(line,(1,2))).
 
+% Robot 2
+init(object(robot,2),value(at,(2,3))).
+init(object(shelf,2),value(at,(5,3))).
+init(object(product,2),value(on,(2,1))).
 init(object(order,2),value(pickingStation,1)).
 init(object(order,2),value(line,(2,2))).
 

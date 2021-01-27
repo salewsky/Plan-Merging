@@ -23,35 +23,31 @@ init(object(node,10),value(at,(2,3))).
 init(object(node,11),value(at,(3,3))).
 init(object(node,12),value(at,(4,3))).
 
-% Robots
-init(object(robot,1),value(at,(1,2))).
-init(object(robot,2),value(at,(2,2))).
-init(object(robot,3),value(at,(1,3))).
-init(object(robot,4),value(at,(2,3))).
-
-
-% Shelves
+% Robot 1
+init(object(robot,1),value(at,(2,2))).
 init(object(shelf,1),value(at,(1,3))).
-init(object(shelf,2),value(at,(2,3))).
-init(object(shelf,3),value(at,(1,2))).
-init(object(shelf,4),value(at,(2,2))).
-
-% Products
 init(object(product,1),value(on,(1,1))).
-init(object(product,2),value(on,(2,1))).
-init(object(product,3),value(on,(3,1))).
-init(object(product,4),value(on,(4,1))).
-
-% Orders
 init(object(order,1),value(pickingStation,1)).
 init(object(order,1),value(line,(1,1))).
 
+% Robot 2
+init(object(robot,2),value(at,(2,3))).
+init(object(shelf,2),value(at,(4,3))).
+init(object(product,2),value(on,(2,1))).
 init(object(order,2),value(pickingStation,1)).
 init(object(order,2),value(line,(2,1))).
 
+% Robot 3
+init(object(robot,3),value(at,(3,2))).
+init(object(shelf,3),value(at,(1,2))).
+init(object(product,3),value(on,(3,1))).
 init(object(order,3),value(pickingStation,1)).
 init(object(order,3),value(line,(3,1))).
 
+% Robot 4
+init(object(robot,4),value(at,(3,3))).
+init(object(shelf,4),value(at,(4,2))).
+init(object(product,4),value(on,(4,1))).
 init(object(order,4),value(pickingStation,1)).
 init(object(order,4),value(line,(4,1))).
 
