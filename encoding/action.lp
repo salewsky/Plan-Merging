@@ -1,4 +1,3 @@
-%#const horizon=3.
 time(1..horizon).
 
 direction((X,Y)) :- X=-1..1, Y=-1..1, |X+Y|=1.
