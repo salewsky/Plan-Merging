@@ -1,9 +1,5 @@
-clingo version 5.4.0
-Reading from encoding\merging.lp ...
-Solving...
-UNSATISFIABLE
+occurs(object(robot,3),action(move,(0,-1)),1). occurs(object(robot,2),action(move,(0,1)),1). occurs(object(robot,1),action(move,(0,-1)),1). occurs(object(robot,1),action(move,(0,1)),2). occurs(object(robot,1),action(move,(0,1)),3). occurs(object(robot,3),action(move,(1,0)),2). occurs(object(robot,3),action(move,(-1,0)),3).
 
-Models       : 0
-Calls        : 1
-Time         : 25.828s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 23.813s
+%horizon = 3
+%c_nr = 2 
+%CPU Time     : 1.297s

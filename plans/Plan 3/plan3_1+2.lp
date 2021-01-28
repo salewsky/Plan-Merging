@@ -2,4 +2,4 @@ occurs(object(robot,2),action(move,(0,1)),1). occurs(object(robot,2),action(move
 
 %horizon = 7
 %c_nr = 0
-%CPU Time     : 0.563s
+%CPU Time     : 0.344s
