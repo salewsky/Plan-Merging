@@ -9,7 +9,7 @@ nextto((X,Y),(DX,DY),(X',Y')) :- direction((DX,DY)), position((X,Y)), position((
 move(R,D,T,0) :- occurs(object(robot,R),action(move,D),T).
 
 % Define end position ---------------------------------------------------------------------------------------------------------------------
-goal(R,C) :- init(object(shelf,R),value(at,C)).
+goal(R,C) :- position(R,C,horizon,0). %init(object(shelf,R),value(at,C)).
 :- position(R,C,horizon,_), goal(R,C'), C!=C'.
 
 % Define position -------------------------------------------------------------------------------------------------------------------------
