@@ -20,9 +20,9 @@ position(R,C,T,A) :- position(R,C,T-1,A), not move(R,_,T,A), conflict_nr(A), isR
 
 
 % Conflict Detection ----------------------------------------------------------------------------------------------------------------------
-1{conflict(R1,T,A); conflict(R2,T,A)}1  :- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, conflict_nr(A). 
-1{conflict(R1,T,A); conflict(R2,T,A)}1  :- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T-1,A), position(R2,C1,T,A),
-											R1!=R2, conflict_nr(A).
+conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, conflict_nr(A).
+conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T-1,A), position(R2,C1,T,A),
+						R1!=R2, conflict_nr(A).
 
 1{solving_conflict(R,T,A) : conflict(R,T,A)}1 :- conflict(_,_,A).
 :- conflict(_,T,A), solving_conflict(_,T',A), T'>T.
