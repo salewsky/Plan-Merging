@@ -1,7 +1,8 @@
-#include "./input.lp".
 conflict_nr(0..c_nr).
 time(0..horizon).
 
+isRobot(robot(R)) :- init(object(robot,R),_).
+position((X,Y))   :- init(object(node,_), value(at,(X,Y))).
 direction((X,Y)) :- X=-1..1, Y=-1..1, |X+Y|=1.
 nextto((X,Y),(DX,DY),(X',Y')) :- direction((DX,DY)), position((X,Y)), position((X',Y')), (X',Y')=(X+DX,Y+DY).
 
@@ -9,21 +10,42 @@ nextto((X,Y),(DX,DY),(X',Y')) :- direction((DX,DY)), position((X,Y)), position((
 move(R,D,T,0) :- occurs(object(robot,R),action(move,D),T).
 
 % Define end position ---------------------------------------------------------------------------------------------------------------------
-goal(R,C) :- position(R,C,horizon,0). %init(object(shelf,R),value(at,C)).
+goal(R,C) :- position(R,C,horizon,0).
 :- position(R,C,horizon,_), goal(R,C'), C!=C'.
 
 % Define position -------------------------------------------------------------------------------------------------------------------------
-position(R,C,0,0) :- position(robot(R),C,0).
+position(R,C,0,0) :- init(object(robot,R), value(at,C)).
 position(R,C,T,A) :- move(R,D,T,A), position(R,C',T-1,A), nextto(C',D,C).
                   :- move(R,D,T,A), position(R,C ,T-1,A), not nextto(C ,D,_).
 position(R,C,T,A) :- position(R,C,T-1,A), not move(R,_,T,A), conflict_nr(A), isRobot(robot(R)), time(T).
 
 
-% Conflict Detection ----------------------------------------------------------------------------------------------------------------------
+% Conflict Detection - Standard -----------------------------------------------------------------------------------------------------------
 conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, conflict_nr(A).
 conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T-1,A), position(R2,C1,T,A),
 						R1!=R2, conflict_nr(A).
 
+						
+% Conflict Detection - Strict Plan --------------------------------------------------------------------------------------------------------
+%conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, conflict_nr(A), not strict_plan(R1).
+%conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T-1,A), position(R2,C1,T,A),
+%						R1!=R2, conflict_nr(A), not strict_plan(R1).
+						
+%:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, conflict_nr(A), strict_plan(R1), strict_plan(R2).
+%:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T-1,A), position(R2,C1,T,A),
+%	R1!=R2, conflict_nr(A), strict_plan(R1), strict_plan(R2).
+
+
+% Conflict Detection - Priority -----------------------------------------------------------------------------------------------------------
+%conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, conflict_nr(A),
+%						p_priority(R1,P1), p_priority(R2,P2), P1<=P2.
+%conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T-1,A), position(R2,C1,T,A),
+%						R1!=R2, conflict_nr(A), p_priority(R1,P1), p_priority(R2,P2), P1<=P2.
+
+%p_priority(R,P) :- priority(R,P).
+%p_priority(R,0) :- not priority(R,_), isRobot(robot(R)).
+
+% Conflict Selection ----------------------------------------------------------------------------------------------------------------------
 1{solving_conflict(R,T,A) : conflict(R,T,A)}1 :- conflict(_,_,A).
 :- conflict(_,T,A), solving_conflict(_,T',A), T'>T.
 											
@@ -45,11 +67,14 @@ move(R,D,T'+1,A+1) 			:- solving_conflict(R,T,A), step_back(R,_,T_B,A+1), move(R
 move(R,D,T'+2,A+1) 			:- step_back(R,_,T_B,A+1), move(R,D,T',A), T'>=T_B-1.
 
 
-% Domain Constraints ----------------------------------------------------------------------------------------------------------------------
+% Integrity Constraints -------------------------------------------------------------------------------------------------------------------
 :- move(_,_,T,_), T>horizon.
 :- position(_,_,T,_), T>horizon.
 :- move(_,_,_,A), A>c_nr.
 :- position (_,_,_,A), A>c_nr.
+:- conflict(_,T,_), T>=horizon.
+:- conflict(_,_,A), A>=c_nr.
+
 
 % Minimize Conflict -----------------------------------------------------------------------------------------------------------------------
 #minimize {1,(R,T,A): solving_conflict(R,T,A)}.

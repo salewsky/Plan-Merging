@@ -2,5 +2,6 @@ occurs(object(robot,2),action(move,(-1,0)),1). occurs(object(robot,2),action(mov
 
 %horizon = 14
 %c_nr = 9
-%Time         : 633.507s (Solving: 630.52s 1st Model: 627.04s Unsat: 3.49s)
-%CPU Time     : 632.750s
+%Time         : 459.502s (Solving: 456.50s 1st Model: 454.73s Unsat: 1.77s)
+%CPU Time     : 458.953s
+
