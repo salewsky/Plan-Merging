@@ -61,7 +61,7 @@ move(R,D,T'+1,A+1) 			:- solving_conflict(R,T,A), not move(R,_,T,A+1), move(R,D,
 
 
 % Random move taken -----------------------------------------------------------------------------------------------------------------------
-1{step_back(R,(DX',DY'),T_B,A+1) : time(T_B), T_B<horizon, T_B>T}1:- solving_conflict(R,T,A), move(R,(DX,DY),T,A+1), DX'=-DX, DY'=-DY.
+1{step_back(R,(DX',DY'),T_B,A+1) : time(T_B), T_B<=horizon, T_B>T}1:- solving_conflict(R,T,A), move(R,(DX,DY),T,A+1), DX'=-DX, DY'=-DY.
 move(R,D,T,A) :- step_back(R,D,T,A).
 move(R,D,T'+1,A+1) 			:- solving_conflict(R,T,A), step_back(R,_,T_B,A+1), move(R,D,T',A), T'>=T, T<T_B-1.
 move(R,D,T'+2,A+1) 			:- step_back(R,_,T_B,A+1), move(R,D,T',A), T'>=T_B-1.
