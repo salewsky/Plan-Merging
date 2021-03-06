@@ -9,15 +9,17 @@ nextto((X,Y),(DX,DY),(X',Y')) :- direction((DX,DY)), position((X,Y)), position((
 % Rename occurs/3 to move/4 ---------------------------------------------------------------------------------------------------------------
 move(R,D,T,0) :- occurs(object(robot,R),action(move,D),T).
 
-% Define end position ---------------------------------------------------------------------------------------------------------------------
-goal(R,C) :- position(R,C,horizon,0).
-:- position(R,C,horizon,_), goal(R,C'), C!=C'.
 
 % Define position -------------------------------------------------------------------------------------------------------------------------
 position(R,C,0,0) :- init(object(robot,R), value(at,C)).
 position(R,C,T,A) :- move(R,D,T,A), position(R,C',T-1,A), nextto(C',D,C).
                   :- move(R,D,T,A), position(R,C ,T-1,A), not nextto(C ,D,_).
 position(R,C,T,A) :- position(R,C,T-1,A), not move(R,_,T,A), conflict_nr(A), isRobot(robot(R)), time(T).
+
+
+% Define end position ---------------------------------------------------------------------------------------------------------------------
+goal(R,C) :- position(R,C,horizon,0).
+:- position(R,C,horizon,_), goal(R,C'), C!=C'.
 
 
 % Conflict Detection - Standard -----------------------------------------------------------------------------------------------------------
@@ -48,7 +50,11 @@ conflict(R1,T,A)	:- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T
 % Conflict Selection ----------------------------------------------------------------------------------------------------------------------
 1{solving_conflict(R,T,A) : conflict(R,T,A)}1 :- conflict(_,_,A).
 :- conflict(_,T,A), solving_conflict(_,T',A), T'>T.
-											
+
+
+% Minimize Number of Conflicts ------------------------------------------------------------------------------------------------------------
+#minimize {1,(R,T,A): solving_conflict(R,T,A)}.
+
 
 % Conflict Solving ------------------------------------------------------------------------------------------------------------------------
 0{move(R,D,T,A+1) : direction(D), nextto(C,D,_)}1 :- solving_conflict(R,T,A), position(R,C,T-1,A).
@@ -76,8 +82,7 @@ move(R,D,T'+2,A+1) 			:- step_back(R,_,T_B,A+1), move(R,D,T',A), T'>=T_B-1.
 :- conflict(_,_,A), A>=c_nr.
 
 
-% Minimize Number of Conflicts ------------------------------------------------------------------------------------------------------------
-#minimize {1,(R,T,A): solving_conflict(R,T,A)}.
+
 
 % Generate merged plan --------------------------------------------------------------------------------------------------------------------
 new_move(R,D,T) :- move(R,D,T,MAX_C), MAX_C == #max{A: position(R,C,T-1,A)}.
