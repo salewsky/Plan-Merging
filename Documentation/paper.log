@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.30)  6 MAR 2021 15:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.30)  11 MAR 2021 14:29
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -222,15 +222,15 @@ opdf-base.sty"
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-)
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 13.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 13.
- [1
+) [1
 
 {C:/Users/Adrian/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Overfull \hbox (16.23668pt too wide) in paragraph at lines 45--49
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 30.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 30.
+
+Overfull \hbox (16.23668pt too wide) in paragraph at lines 51--55
 \OT1/cmr/m/n/10 prilo frame-work: $\OML/cmm/m/it/10 isRobot\OT1/cmr/m/n/10 (\OM
 L/cmm/m/it/10 robot\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R\OT1/cmr/m/n/10 ))$ to ch
 eck if some-thing is a robot, $\OML/cmm/m/it/10 position\OT1/cmr/m/n/10 ((\OML/
@@ -238,143 +238,152 @@ cmm/m/it/10 X; Y\OT1/cmr/m/n/10 ))$
  []
 
 
-Overfull \hbox (55.61015pt too wide) in paragraph at lines 45--49
-\OT1/cmr/m/n/10 The pro-gram ex-pects as in-put a plan of the form $\OML/cmm/m/
-it/10 occurs\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 object\OT1/cmr/m/n/10 (\OML/cmm/m
-/it/10 robot; R\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; action\OT1/cmr/m/n/10 (\OML/
-cmm/m/it/10 move; D\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; T\OT1/cmr/m/n/10 )$.
+Overfull \hbox (57.55461pt too wide) in paragraph at lines 51--55
+\OT1/cmr/m/n/10 As in-put, the pro-gram ex-pects a plan of the form $\OML/cmm/m
+/it/10 occurs\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 object\OT1/cmr/m/n/10 (\OML/cmm/
+m/it/10 robot; R\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; action\OT1/cmr/m/n/10 (\OML
+/cmm/m/it/10 move; D\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; T\OT1/cmr/m/n/10 )$.
  []
 
-
-Overfull \hbox (36.12312pt too wide) in paragraph at lines 54--54
+[2]
+Overfull \hbox (36.12312pt too wide) in paragraph at lines 61--61
 []\OT1/cmtt/m/n/10 position(R,C,T,A) :- move(R,D,T,A), position(R,C',T-1,A), ne
 xtto(C',D,C).[] 
  []
 
 
-Overfull \hbox (57.12294pt too wide) in paragraph at lines 54--54
+Overfull \hbox (57.12294pt too wide) in paragraph at lines 61--61
 []                  \OT1/cmtt/m/n/10 :- move(R,D,T,A), position(R,C ,T-1,A), no
 t nextto(C ,D,_).[] 
  []
 
 
-Overfull \hbox (198.8717pt too wide) in paragraph at lines 54--54
+Overfull \hbox (51.87299pt too wide) in paragraph at lines 61--61
 []\OT1/cmtt/m/n/10 position(R,C,T,A) :- position(R,C,T-1,A), not move(R,_,T,A),
- conflict_nr(A), isRobot(robot(R)), time(T).[] 
+ conflict_nr(A),[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--63
+Underfull \hbox (badness 10000) in paragraph at lines 68--70
 
  []
 
-[2]
-Overfull \hbox (219.87152pt too wide) in paragraph at lines 69--69
-[]\OT1/cmtt/m/n/10 conflict(R1,T,A) :- position(R1,C1,T-1,A), position(R1,C2,T,
-A), position(R2,C2,T,A), R1!=R2, conflict_nr(A).[] 
+<Images/Conflict 1_1.png, id=16, 648.92438pt x 392.21532pt>
+File: Images/Conflict 1_1.png Graphic file (type png)
+<use Images/Conflict 1_1.png>
+Package pdftex.def Info: Images/Conflict 1_1.png  used on input line 77.
+(pdftex.def)             Requested size: 138.84729pt x 83.91768pt.
+<Images/Conflict 1_2.png, id=17, 648.17157pt x 396.7322pt>
+File: Images/Conflict 1_2.png Graphic file (type png)
+<use Images/Conflict 1_2.png>
+Package pdftex.def Info: Images/Conflict 1_2.png  used on input line 83.
+(pdftex.def)             Requested size: 138.84729pt x 84.98701pt.
+<Images/Conflict 2.png, id=18, 754.31813pt x 475.7775pt>
+File: Images/Conflict 2.png Graphic file (type png)
+<use Images/Conflict 2.png>
+Package pdftex.def Info: Images/Conflict 2.png  used on input line 97.
+(pdftex.def)             Requested size: 213.39566pt x 134.59613pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3] [4 <./Images/Conflict 1_1.png> <./Images/Conflict 1_2.png> <./Images/Confli
+ct 2.png>]
+Overfull \hbox (15.1233pt too wide) in paragraph at lines 133--133
+[]\OT1/cmtt/m/n/10 position(R,C,T-1,A+1) :- solving_conflict(R',T,A), isRobot(r
+obot(R)),[] 
  []
 
 
-Overfull \hbox (214.62157pt too wide) in paragraph at lines 75--75
-[]\OT1/cmtt/m/n/10 conflict(R1,T,A) :- position(R1,C1,T-1,A), position(R1,C2,T,
-A), position(R2,C2,T-1,A), position(R2,C1,T,A),[] 
+Overfull \hbox (25.62321pt too wide) in paragraph at lines 133--133
+[]\OT1/cmtt/m/n/10 move(R,D,T',A+1) :- solving_conflict(R',T,A), isRobot(robot(
+R)), R!=R',[] 
  []
 
 
-Overfull \hbox (167.37198pt too wide) in paragraph at lines 93--93
-[]\OT1/cmtt/m/n/10 0{move(R,D,T,A+1) : direction(D), nextto(C,D,_)}1 :- solving
-_conflict(R,T,A), position(R,C,T-1,A).[] 
+Overfull \hbox (4.6234pt too wide) in paragraph at lines 139--139
+[]\OT1/cmtt/m/n/10 move(R,D,T'+1,A+1) :- solving_conflict(R,T,A), not move(R,_,
+T,A+1),[] 
  []
 
 
-Overfull \hbox (130.6223pt too wide) in paragraph at lines 99--99
-[]\OT1/cmtt/m/n/10 position(R,C,T-1,A+1)  :- solving_conflict(R',T,A), isRobot(
-robot(R)), position(R,C,T-1,A).[] 
- []
-
-
-Overfull \hbox (151.62212pt too wide) in paragraph at lines 99--99
-[]\OT1/cmtt/m/n/10 move(R,D,T',A+1)  :- solving_conflict(R',T,A), isRobot(robot
-(R)), R!=R', move(R,D,T',A), T'>=T.[] 
- []
-
-[3]
-Overfull \hbox (183.12184pt too wide) in paragraph at lines 104--104
-[]\OT1/cmtt/m/n/10 move(R,D,T'+1,A+1)  :- solving_conflict(R,T,A), not move(R,_
-,T,A+1), move(R,D,T',A), T'>=T, time(T').[] 
- []
-
-
-Overfull \hbox (361.62029pt too wide) in paragraph at lines 108--108
+Overfull \hbox (15.1233pt too wide) in paragraph at lines 144--144
 []\OT1/cmtt/m/n/10 1{step_back(R,(DX',DY'),T_B,A+1) : time(T_B), T_B<=horizon, 
-T_B>T}1:- solving_conflict(R,T,A), move(R,(DX,DY),T,A+1), DX'=-DX, DY'=-DY.[] 
+T_B>T}1:-[] 
  []
 
 
-Overfull \hbox (193.62175pt too wide) in paragraph at lines 114--114
-[]\OT1/cmtt/m/n/10 move(R,D,T'+1,A+1)  :- solving_conflict(R,T,A), step_back(R,
-_,T_B,A+1), move(R,D,T',A), T'>=T, T<T_B-1.[] 
+Overfull \hbox (36.12312pt too wide) in paragraph at lines 144--144
+[]        \OT1/cmtt/m/n/10 solving_conflict(R,T,A), move(R,(DX,DY),T,A+1), DX'=
+-DX, DY'=-DY.[] 
  []
 
 
-Overfull \hbox (36.12312pt too wide) in paragraph at lines 114--114
-[]\OT1/cmtt/m/n/10 move(R,D,T'+2,A+1)  :- step_back(R,_,T_B,A+1), move(R,D,T',A
-), T'>=T_B-1.[] 
+Overfull \hbox (20.37326pt too wide) in paragraph at lines 151--151
+[]\OT1/cmtt/m/n/10 move(R,D,T'+1,A+1) :- solving_conflict(R,T,A), step_back(R,_
+,T_B,A+1),[] 
  []
 
-[4]
-Overfull \hbox (51.87299pt too wide) in paragraph at lines 135--135
+
+Overfull \hbox (30.87317pt too wide) in paragraph at lines 151--151
+[]\OT1/cmtt/m/n/10 move(R,D,T'+2,A+1) :- step_back(R,_,T_B,A+1), move(R,D,T',A)
+, T'>=T_B-1.[] 
+ []
+
+[5]
+Overfull \hbox (51.87299pt too wide) in paragraph at lines 172--172
 []\OT1/cmtt/m/n/10 new_move(R,D,T) :- move(R,D,T,MAX_C), MAX_C == #max{A: posit
 ion(R,C,T-1,A)}.[] 
  []
 
 
-Overfull \hbox (93.87262pt too wide) in paragraph at lines 149--149
+Overfull \hbox (93.87262pt too wide) in paragraph at lines 186--186
 []\OT1/cmtt/m/n/10 conflict(R1,T,A) :- position(R1,C1,T-1,A), position(R1,C2,T,
 A), position(R2,C2,T,A),[] 
  []
 
-
-Overfull \hbox (46.62303pt too wide) in paragraph at lines 156--156
+[6]
+Overfull \hbox (46.62303pt too wide) in paragraph at lines 193--193
 []\OT1/cmtt/m/n/10 :- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C
 2,T,A), R1!=R2,[] 
  []
 
 
-Overfull \hbox (93.87262pt too wide) in paragraph at lines 167--167
+Overfull \hbox (93.87262pt too wide) in paragraph at lines 204--204
 []\OT1/cmtt/m/n/10 conflict(R1,T,A) :- position(R1,C1,T-1,A), position(R1,C2,T,
 A), position(R2,C2,T,A),[] 
  []
 
-[5]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 175.
+(Font)              <9> on input line 212.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 175.
- [6] [7] [8] (paper.aux) ) 
+(Font)              <6> on input line 212.
+[7] [8] [9] [10] [11] (paper.aux) ) 
 Here is how much of TeX's memory you used:
- 1629 strings out of 479662
- 24014 string characters out of 2863093
- 307881 words of memory out of 3000000
- 18767 multiletter control sequences out of 15000+200000
- 407414 words of font info for 41 fonts, out of 3000000 for 9000
+ 1665 strings out of 479662
+ 24710 string characters out of 2863093
+ 309907 words of memory out of 3000000
+ 18795 multiletter control sequences out of 15000+200000
+ 408963 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,9n,72p,1262b,285s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Adrian/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Adrian/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/Ad
-rian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pf
-b><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr10.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmr6.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Adrian/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/Adrian/AppData/Loc
-al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Adri
-an/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on paper.pdf (8 pages, 162922 bytes).
+ 66i,9n,72p,1262b,277s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Adrian/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Adrian/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Adrian
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:
+/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmcsc10.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi10.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Adrian/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Adrian/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Adrian
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/
+Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mti12.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmtt10.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on paper.pdf (11 pages, 220182 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
+ 89 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
