@@ -1,0 +1,24 @@
+| Instance Name      | Solving Time (Single Instance) | Horizon |  Num Robot |
+| ------------------ | ------------------------------ | ------- | ---------- |
+| Instance 1         |              0.049s            |   5     |     2      |
+| Instance 5         |              0.060s            |   3     |     4      |
+| Instance 6         |              0.065s            |   6     |     2      |
+| Instance 7         |              0.517s            |   9     |     8      | 
+| bench_test_2       |              0.064s            |   5     |     2      |
+| bench_test_3       |              0.046s            |   4     |     2      |
+| bench_test_16_mod1 |              0.075s            |   6     |     4      |
+| Benchmark-5        |              0.794s            |   11    |     4      |
+| Benchmark-6        |              0.534s            |   9     |     8      |
+| Benchmark-42       |              0.723s            |   10    |     5      |
+| Benchmark-51       |              0.577s            |   21    |     6      |
+| Benchmark 03       |              0.078s            |   5     |     4      |
+| Benchmark 05       |              0.038s            |   4     |     3      |
+| Benchmark R1       |            TOO LONG            |   31    |     50     |
+| Benchmark R2       |            TOO LONG            |   57    |     30     |
+| Benchmark_1        |              0.087s            |   7     |     3      |
+| Benchmark_2        |              1.575s            |   19    |     2      |
+| Benchmark_3        |              0.201s            |   9     |     3      |
+| Benchmark_4        |              0.269s            |   15    |     2      |
+
+TOO LONG means the solver needed more than half an hour to solve the instance. 
+After that time, I stopped the solver.

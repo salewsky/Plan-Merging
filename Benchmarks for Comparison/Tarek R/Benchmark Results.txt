@@ -1,0 +1,25 @@
+| Instance Name      | Time      | CPU-Time   | Horizon |   Constant rm    | Num Robot |
+| ------------------ | --------  | ---------- | ------- | ---------------- | --------- |
+| Instance 1         |    0.172s |    0.141s  |   5     |        1         |    2      |
+| Instance 5         |   UNSATISFIABLE(0.06s) |   -     |        10        |    4      |
+| Instance 6         |    0.246s |    0.234s  |   14    |        9         |    2      |
+| Instance 7         |   UNSATISFIABLE(5.88s) |   -     |        10        |    8      |
+| bench_test_2       |    0.159s |    0.109s  |   5     |        2         |    2      |
+| bench_test_3       |    0.134s |    0.125s  |   4     |        3         |    2      |
+| bench_test_16_mod1 |    0.241s |    0.203s  |   6     |        4         |    4      |
+| Benchmark-5        |    0.762s |    0.688s  |   17    |        7         |    4      |
+| Benchmark-6        |    1.213s |    1.063s  |   11    |        5         |    8      |
+| Benchmark-42       |    1.673s |    1.578s  |   11    |        2         |    5      |
+| Benchmark-51       |   13.101s |   11.891s  |   23    |        3         |    6      |
+| Benchmark 03       |    0.266s |    0.172s  |   5     |        4         |    4      |
+| Benchmark 05       |    0.142s |    0.094s  |   4     |        3         |    3      |
+| Benchmark R1       |        TOO LONG        |   -     |        5         |    50     |
+| Benchmark R2       |        TOO LONG        |   -     |        5         |    30     |
+| Benchmark_1        |    0.219s |    0.156s  |   5     |        4         |    3      |
+| Benchmark_2        |    1.687s |    1.516s  |   19    |        16        |    2      |
+| Benchmark_3        |    0.904s |    0.734s  |   14    |        6         |    3      |
+| Benchmark_4        |    0.298s |    0.281s  |   15    |        8         |    2      |
+
+
+TOO LONG means the solver needed more than half an hour to solve the instance. 
+After that time, I stopped the solver.

@@ -28,15 +28,16 @@ the plan merging problem.
 
 
 \section{Introduction}
-The asprilo framework is used to make plans for robots in a warehouse, i.e. when does a robot pick up or shelf or when does a robot move which way. 
+The asprilo framework is used to make plans for robots in a warehouse, i.e. when does a robot pick up or shelf or when does a robot move which way \cite{asprilo}. 
 It uses the language Answer Set Programming (ASP). Since there is no order in which ASP computes things, the predicates which describe the actions of robots and
 the positions of objects contain an argument $T$ which declares at which time step the predicate holds. This project was done in the M-domain of the asprilo framework.
 In the M-domain, the goal is to have a robot under each shelf that contains an ordered product at the last time step (the last time step is called horizon). This domain simplifies the framework 
 to Multi-Agent Path Finding (MAPF). The framework works well for a small number of robots but for a high number of robots, the computation time gets too high. This is
-why the plan came up to combine plans for a small number of robots to a plan for all the robots. During the combining of these plans, all the conflicts that arise between 
-robots must be solved. This paper shows my approach on how to solve this plan merging problem in ASP. In the following section, I will show my general idea on how to solve 
+why the idea came up to combine plans for a small number of robots to a plan for all the robots. During the combining of these plans, all the conflicts that arise between 
+robots must be solved. This paper shows my approach on how to solve this plan merging problem in ASP. The solver I used is ``clingo 5.4.0''.In the following section, I will show my general idea on how to solve 
 conflicts. In the section after that, I will show my ASP encoding and explain its functions. Section 4 contains the analysis on the efficiency of my solution. The comparison of my approach with that of other groups that have
-been working on the same project is shown in section 5. I will end my paper with a conclusion. 
+been working on the same project is shown in section 5. I will end my paper with a conclusion. \\
+My solution as well as the used benchmarks can be found in my github repository \cite{owngithub}.
 
 
 \section{Idea}
@@ -44,11 +45,11 @@ The main idea behind my solution is that every time a conflict arises, one of th
 To do that, the program needs to detect the conflicts and choose a robot who has to solve the conflict by generating a new move. The problem that arises is that
 there is no option to overwrite predicates in ASP. Therefore, a new argument was needed for every predicate describing a plan. This new argument is called $conflict\_nr$ and 
 the higher this argument is in a predicate the newer is the plan containing that predicate. This idea is a very simple approach to solving the problem since it completely adapts the original plan and only
-inserts additional moves. This way the resulting solution might not have an optimal move set for every robot but it should be able to theoretically solve any problem instance.
+inserts additional moves. This way the resulting solution might not have an optimal move set for every robot but it should be able to theoretically solve most problem instances. 
 
 \section{Answer Set Programming Encoding}
 \subsection{Pre-Required Predicates}
-To solve the problem there are several predicates needed before starting to solve the conflicts. There are two domain intervals whose upper bounds are constants: $time$ with the constant $horizon$ and $conflict\_nr$ with the constant $c\_nr$.
+To solve the problem, there are several predicates needed before starting to solve the conflicts. There are two domain intervals whose upper bounds are constants: $time$, which states at which time step something happens, with the constant $horizon$ and $conflict\_nr$, which states how many conflicts have been solved to reach this plan, with the constant $c\_nr$.
 The constants are chosen at run-time. \\ There are some predicates that have been taken over from the encoding for the asprilo framework: $isRobot(robot(R))$ to check if something is a robot, $position((X,Y))$ to check if the node (X,Y) exists, $direction((X,Y))$ declares the 4 directions a robot can go into and $nextto(C1,D,C2)$ states that you get from the node C1 to the node C2 if you move into direction D. \\  
 As input, the program expects a plan of the form $occurs(object(robot,R),action(move,D),T)$. This is transformed into the predicate $move(R,D,T,0)$. This means that the original plan has the $conflict\_nr$ 0. \\
 Another part that has been mostly taken over from the encoding for the framework itself is the declaration of the position predicates:
@@ -105,7 +106,7 @@ conflict(R1,T,A) :- position(R1,C1,T-1,A), position(R1,C2,T,A),
                     R1!=R2, conflict_nr(A).
 \end{verbatim}
 The same predicate is derived for this type of conflict. \\
-The program detects all of the conflicts arising in a plan this way. Only one conflict can get solved in each conflict depth, otherwise separate plans get created for each robot because there would be a separate plan to solve each conflict. The program chooses one of the conflicts that appeared the earliest.
+The program detects all of the conflicts arising in a plan this way. Only one conflict can get solved in each conflict depth, otherwise multiple plans get created for each robot because there would be separate plans to solve each conflict. The program chooses one of the conflicts that appeared the earliest.
 \begin{verbatim}
 1{solving_conflict(R,T,A) : conflict(R,T,A)}1 :- conflict(_,_,A).
 :- conflict(_,T,A), solving_conflict(_,T',A), T'>T.
@@ -131,7 +132,7 @@ position(R,C,T-1,A+1) :- solving_conflict(R',T,A), isRobot(robot(R)),
 move(R,D,T',A+1) :- solving_conflict(R',T,A), isRobot(robot(R)), R!=R', 
                     move(R,D,T',A), T'>=T.
 \end{verbatim}
-The first rule raises the conflict depth of the position predicate of every robot in the time step before the conflict. The second rule raises the conflict depth of every move predicate of every robot, except the selected one, in every time step after the conflict. This way only the predicates from the time step of the conflict and after that get changed. This reduces the amount of predicates compared to always changing all the predicates including the ones before the conflict happened. \\
+The first rule raises the conflict depth of the position predicate of every robot in the time step before the conflict. The second rule raises the conflict depth of every move predicate of every robot, except the selected one, in every time step after the conflict. This way only the predicates starting from the time step of the conflict get changed. This reduces the amount of predicates compared to always changing all the predicates including the ones before the conflict happened. \\
 The only thing left is to change the plan of the selected robot accordingly. Since there are two possible solutions for a conflict, there are two ways to push back the plan. The first possible solution is that the robot waits. In this case the plan only needs to get pushed back by one time step:
 \begin{verbatim}
 move(R,D,T'+1,A+1) :- solving_conflict(R,T,A), not move(R,_,T,A+1), 
@@ -191,7 +192,7 @@ This is encoded by using additional integrity constraints:
 :- position(R1,C1,T-1,A), position(R1,C2,T,A), position(R2,C2,T,A), R1!=R2, 
    conflict_nr(A), strict_plan(R1), strict_plan(R2).
 \end{verbatim}
-The other conflict type looks the same. As this is a very hard constraint and can very easily lead to unsatisfiable problems, I have decided to extend the idea
+The other conflict type looks the same. As this is a very strong constraint and can very easily lead to unsatisfiable problems, I have decided to extend the idea
 to let the user control which robot gets chosen as the one who has to solve the conflict. This brings me to my second feature: Introducing a priority system.
 The user can add predicates $priority(R\_ID, P)$ where $R\_ID$ is the ID of a robot again and P is the assigned priority of that robot. 
 The solver then always chooses the robot with the lower priority to solve a conflict. If two robots have the same priority, either can be chosen. 
@@ -208,21 +209,45 @@ Both features change how the conflict solving robot is chosen. Using them can be
 easily make an instance unsatisfiable.
 
 \section{Analysis of Solution}
-There are several benchmarks the solution has been tested on a (a complete list can be found in the appendix). By looking at the results it is obvious that the presented solution is very time inefficient. While it is fast when there is only a small number of robots, a small $horizon$ and a small $c\_nr$, the solution gets very high very fast when these parameters are rising. It does not seem like there is a specific parameter that affects the time the most but that the time rises a lot as soon as there are at least 2 parameters rising. This time inefficiency was not entirely unexpected. There are several problems that result in this time inefficiency. The first one is that there are two domains whose upper bound are determined by a constant that is chosen at run-time. Especially the usage of the conflict depth makes it very inefficient. Every time there is a conflict, the whole remaining plan has to get pushed back. This results in a lot of predicates that need to be created. Another problematic part is the inertia rule. Since it has to check for every possible time step, conflict depth and robot whether there is a move predicate, it gets very inefficient. However, I have found no way to avoid this problem. \\
-Another part that makes the solution inefficient is the usage of choice rules. Since there are several rules where the solver can decide which to choose, a lot of possibilities get created. However, this way of solving has the advantage that theoretically all problems can be solved. In practice, there is only one instance that was not solvable\footnote{Benchmark: Limited Moves by Marius and Niklas}. I have also created a similar benchmark\footnote{Benchmark: Instance 6} which basically deals with the same problem. The solver could solve this benchmark which means that there is another problem with the unsolvable instance that I could not find. Since it is likely a very niche problem instance, it is not too devastating that it is unsolvable. \\
-To summarize, the solution is time inefficient but generally usable. To avoid a high solution time, the instances should be broken down to ones that only need smaller parameters. For example, big instances could be divided into smaller groups which get solved. After that these plans get combined again to form the complete plan. Another possible application case is already having a plan for a lot of robots and just adding a small number of robots. In both cases, the conflict number might be lower which would allow the solver to find a solution in an acceptable time frame.
+There are several benchmarks the solution has been tested on a (a complete list can be found in the appendix). By looking at the results it is obvious that the presented solution is very time inefficient. While it is fast when there is only a small number of robots, a small $horizon$ and a small $c\_nr$, the solution gets very high very fast when these parameters are rising. It does not seem like there is a specific parameter that affects the time the most but that the time rises a lot as soon as there are at least 2 parameters rising. \\
+There are several problems that result in this time inefficiency. The first one is that there are two domains whose upper bounds are determined by constants that are chosen at run-time. Especially the usage of the conflict depth makes it very inefficient. Every time there is a conflict, the whole remaining plan has to get pushed back. This results in a lot of predicates that need to be created. Another problematic part is the inertia rule. Since it has to check for every possible time step, conflict depth and robot whether there is a move predicate, it gets very inefficient. However, I have found no way to avoid this problem. \\
+Another part that makes the solution inefficient is the usage of choice rules. Since there are several rules where the solver can decide which to choose, a lot of possibilities get created. However, this way of solving has the advantage that theoretically most problems can be solved. 
+There are three benchmarks that took too long\footnote{The upper time limit I chose is half an hour} to solve. Two of them have a high number of robots (50 and 30) and need a high horizon as well (about 30 and 60 respectively). The third one only has two robots but a $horizon$ of 19 and a $c\_nr$ of 10. This shows that all the parameters greatly influence the solution time. \\
+There are two benchmarks, where the solver returned ``unsatisfiable''. One of them has three robots in a circular corridor (see figure \ref{fig:I1}). This instance is not solvable because the robots need to discard their original plans. As my approach only delays the original plan, it cannot solve such instances. This instance is negligible since it is unlikely that there is a warehouse layout in the real world that does not have any extra space for the robots to dodge to. The second unsolvable instance can be seen in figure \ref{fig:I2}. I do not know why this instance is unsolvable. A similar instance is the one shown in figure \ref{fig:I3}. This instance basically deals with the same problem and can be solved with my solution. Even when reducing the unsolvable instance to just two robots, which makes it even more like the other instance, it is unsolvable. However, this problem seems to be negligible as well since the other benchmarks were solved as expected. This means that only problems that are unlikely to appear in the real world seem to be unsolvable. \\
+To summarize, my approach is time inefficient but it seems to be able to solve most problems. This means that it can be used for small instance where the parameters are not very high. The found solution is not optimal because it only solves a conflict the moment it occurs and always completely uses the original plan.       
+
+\begin{figure}[h]
+\includegraphics[width=75mm]{Images/Instance 1}
+\caption{Benchmark\_1 by Tarek Ramadan}
+\label{fig:I1}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=75mm]{Images/Instance 2}
+\caption{Benchmark-5 by Marius W and Niklas K.}
+\label{fig:I2}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=75mm]{Images/Instance 3}
+\caption{Instance 6 (Own Benchmark)}
+\label{fig:I3}
+\end{figure}
+
 
 \section{Comparison with other Approaches}
- - advantages and disadvantages of my approach compared to other approaches based on the benchmarking
+There are 4 other groups that have worked on the same problem. In the appendix, the benchmark results of every solution can be found. \\
+The solution of Tarek Ramadan \cite{github1} is able to solve most instances in a short time. The instances with 30 and 50 robots take too long for his solution as well. There are two instances his approach could not solve. Both of these were solvable by my approach. This means, his approach is generally faster but has problems with different instances. \\
+The approach of Tom Schmidt, Hannes Weichelt and Julian Bruns \cite{github2} is very fast in the instances it can solve. It is the only approach that can solve the instances with 50 and 30 robots in the designated time frame. The downside is that there are three instances that are unsatisfiable. Benchmark\_1 (the circular shape) is one of them. Another unsolvable instance is the one where the robots have to move away from their original path together which seems to be a problem for this approach. The third unsatisfiable instance is a rather simple problem with only one conflict which makes it weird that it cannot be solved. After talking with the group it seems that they find a solution which makes this a rather strange problem. Apart from the unsolvable instances, there are two instances where the solver finds solutions in the given horizon but these solutions have one robot next to their goal node which makes the solution wrong.  The approach of this group seems to be very fast. The downside to it is that it is unreliable since there are some unsolvable instances and the found solutions are not always correct.  \\
+The solution of Marcus Funke and Maximilian Wiedenhöft \cite{github3} seems to have problems similar to mine. It is very time inefficient. Furthermore, there are three instances that cannot be solved. One of those instances is Benchmark\_1 which my approach could not solve either. Their solution can however solve the other instance mine could not. To summarize, their approach is time inefficient as well and there is a similar amount of instances it cannot solve. \\
+The solution of Marius Wawerek and Niklas Kämmer \cite{github4} has very short solution times for most instances. The only instances that could not be solved in the designated time were the ones with 30 and 50 robots. There is no instance that is unsolvable. It seems to be the best solution for solving small instances. There does not seem to be any instance it cannot solve. The only problem is that the solving time rises too high if there are too many robots.
 
 \section{Conclusion}
-This paper explained my approach on how to solve the plan merging problem for the asprilo framework. The solution is able to solve almost all of the benchmarks with the exception being a very niche 
-benchmark that is unlikely to appear in the real world. There are two main problems in my solution. The first is that it is very time inefficient. The second is that the user has to input the time horizon and
+This paper explained my approach on how to solve the plan merging problem for the asprilo framework. The solution is able to solve almost all of the benchmarks with the exception being two very niche 
+benchmarks that are unlikely to appear in the real world. There are two main problems in my solution. The first is that it is very time inefficient. The second is that the user has to input the time horizon and
 the maximum conflict number. If he does not know it, he will likely take an upper bound which increases the computation time. While those two problems are definitely a major deficit of my solution, the trade-off
-is that it is generally usable and it finds a solution with the minimum amount of conflicts needed to solve a problem instance. To avoid the time inefficiency, the user can also take a parallel approach, i.e. combining 
-the plans of 2 robots at a time, then combining these plans again and so on. This way, the conflict number of the problem instances is likely lower than when combining all plans at once. This also means that the computation time
-is reduced. Another possible usage of this solution is adding new robots to a warehouse where a plan for the other robots already exists. Since only a small number of robots is likely added, the conflict number is probably low
-enough to get a solution in an acceptable time. \\
+is that it is generally usable and it finds a solution with the minimum amount of conflicts needed to solve a problem instance. 
+This means that it can be used in small instances where there are not two many robots and a small amount of conflicts.\\
 My solution to solving the plan merging problem has a lot of possibilities of getting improved, like time efficiency and taking it to the A-domain of the framework. Nevertheless, it is an approach that solves the problem and could
 be used in certain scenarios.
 
@@ -270,15 +295,134 @@ https://github.com/NikKaem/mapf-project
 \newpage
 \appendix
 \section{Benchmark Results}
-\begin{tabular}[h]{c|c|c|c|c|c}
+The solver was interrupted after a solving time of half an hour. If the solver needed more time than that,
+the solving time is shown as ``TOO LONG''. The solver did not find a solution if these instances were tested with smaller parameters. The instances that were ``UNSATISFIABLE'' are the ones that are unlikely to return a solution even when using
+higher parameters. 
+
+\subsection{My Solver}
+\begin{tabular}[h]{l|c|c|c|c|c}
 Instance & Time & CPU-Time & Horizon & Solved Conflicts & Robots \\
 Instance 1 & 0.125s & 0.109s & 5 & 1 & 2 \\
-Instance 2 & 5.063s & 5.016s & 10 & 3 & 4 \\
-Instance 3 & 2.672s & 2.641s & 9 & 2 & 4 \\
-Instance 4 & 0.078s & 0.078s & 2 & 0 & 4 \\
 Instance 5 & 0.484s & 0.469s & 4 & 3 & 4 \\
 Instance 6 & 696.239s & 695.594s & 14 & 9 & 2 \\
 Instance 7 & 134.847s & 134.672 & 9 & 3 & 8 \\
+bench\_test\_2 & 0.125s & 0.109s & 7 & 1 & 2 \\
+bench\_test\_3 & 0.078s & 0.063s & 4 & 1 & 2 \\
+bench\_test\_16\_mod1 & 11.220s & 10.922s & 8 & 5 & 4 \\
+Benchmark-5 & \multicolumn{2}{c|}{UNSATISFIABLE(1525s)} & 17 & 14 & 4 \\
+Benchmark-6 & 881.982s & 875.938s & 10 & 6 & 8 \\
+Benchmark-42 & 16.619s & 16.531s & 10 & 1 & 5 \\ 
+Benchmark-51 & 1702.764s & 1696.922s & 23 & 1 & 6 \\
+Benchmark 03 & 16.467s & 16.188s & 7 & 5 & 4 \\
+Benchmark 05 & 0.121s & 0.094s & 4 & 1 & 3 \\
+Benchmark R1 &\multicolumn{2}{c|}{TOO LONG} & 20 & 1 & 50 \\
+Benchmark R2 & \multicolumn{2}{c|}{TOO LONG} & 20 & 1 & 30 \\
+Benchmark\_1 & \multicolumn{2}{c|}{UNSATISFIABLE(355s)} & 8 & 8 & 3 \\ 
+Benchmark\_2 & \multicolumn{2}{c|}{TOO LONG} & 19 & 10 & 2 \\
+Benchmark\_3 & 1.075s & 1.063s & 9 & 2 & 3 \\
+Benchmark\_4 & 3.133s & 3.109s & 15 & 4 & 2 \\
+\end{tabular}
+
+\subsection{Tarek Ramadan}
+\begin{tabular}[h]{l|c|c|c|c|c}
+Instance & Time & CPU-Time & Horizon & Constant rm & Robots \\
+Instance 1 & 0.172s & 0.141s & 5 & 1 & 2 \\
+Instance 5 & \multicolumn{2}{c|}{UNSATISFIABLE(0.06s)} & - & 10 & 4 \\
+Instance 6 & 0.246s & 0.234s & 14 & 9 & 2 \\
+Instance 7 & \multicolumn{2}{c|}{UNSATISFIABLE(5.88s)} & - & 10 & 8 \\
+bench\_test\_2 & 0.159s & 0.109s & 5 & 2 & 2 \\
+bench\_test\_3 & 0.134s & 0.125s & 4 & 3 & 2 \\
+bench\_test\_16\_mod1 & 0.241s & 0.203s & 6 & 4 & 4 \\
+Benchmark-5 & 0.762s & 0.688s & 17 & 7 & 4 \\
+Benchmark-6 & 1.213s & 1.063s & 11 & 5 & 8 \\
+Benchmark-42 & 1.673s & 1.578s & 11 & 2 & 5 \\ 
+Benchmark-51 & 13.101s & 11.891s & 23 & 3 & 6 \\
+Benchmark 03 & 0.266s & 0.172s & 5 & 4 & 4 \\
+Benchmark 05 & 0.142s & 0.094s & 4 & 3 & 3 \\
+Benchmark R1 &\multicolumn{2}{c|}{TOO LONG} & - & 5 & 50 \\
+Benchmark R2 & \multicolumn{2}{c|}{TOO LONG} & - & 5 & 30 \\
+Benchmark\_1 & 0.219s & 0.156s & 5 & 4 & 3 \\ 
+Benchmark\_2 & 1.687s & 1.516s & 19 & 16 & 2 \\
+Benchmark\_3 & 0.904s & 0.734s & 14 & 6 & 3 \\
+Benchmark\_4 & 0.298s & 0.281s & 15 & 8 & 2 \\
+\end{tabular}
+
+\subsection{Tom Schmidt, Hannes Weichelt and Julian Bruns}
+Instance 7 and Benchmark-6 return a solution. In these solutions however, not all robots
+are on their goal node which means they are wrong. \\
+\\
+\begin{tabular}[h]{l|c|c|c}
+Instance & Solving Time & Horizon & Robots \\
+Instance 1 & 0.066s & 5 & 2 \\
+Instance 5 & 0.060s  & 3 & 4 \\
+Instance 6 & 0.110s & 8 & 2 \\
+Instance 7 & 0.710s  & 11 & 8 \\
+bench\_test\_2 & UNSATISFIABLE(60s) & 20 & 2 \\
+bench\_test\_3 & 0.071s & 6 & 2 \\
+bench\_test\_16\_mod1 & 0.231s & 8 & 4 \\
+Benchmark-5 & 0.474s & 13 & 4 \\
+Benchmark-6 & 2.157s & 12 & 8 \\
+Benchmark-42 & 0.112s & 11 & 5 \\ 
+Benchmark-51 & 1.712s & 23 & 6 \\
+Benchmark 03 & 0.192s & 7 & 4 \\
+Benchmark 05 & 0.045s & 5 & 3 \\
+Benchmark R1 & 278.224s & 29 & 50 \\
+Benchmark R2 & 255.805s & 62 & 30 \\
+Benchmark\_1 & UNSATISFIABLE(5s) & 15 & 3 \\ 
+Benchmark\_2 & UNSATISFIABLE(83s) & 25 & 2 \\
+Benchmark\_3 & 0.212s & 11 & 3 \\
+Benchmark\_4 & 0.437s & 15 & 2 \\
+\end{tabular}
+
+
+
+
+\subsection{Marcus Funke and Maximilian Wiedenhöft}
+\begin{tabular}[h]{l|c|c|c|c}
+Instance & Time & CPU-Time & Horizon &  Robots \\
+Instance 1 & 1.672s & 1.656s & 5 & 2 \\
+Instance 5 & \multicolumn{2}{c|}{UNSATISFIABLE(42s)} & 10 & 4 \\
+Instance 6 & 9.947s & 9.766s & 14 & 2 \\
+Instance 7 & \multicolumn{2}{c|}{TOO LONG} & 9  & 8 \\
+bench\_test\_2 & 3.361s & 3.172s & 7 & 2 \\
+bench\_test\_3 & 0.437s & 0.422s & 4 & 2 \\
+bench\_test\_16\_mod1 & 20.751s & 20.703s & 9 & 4 \\
+Benchmark-5 & 1398.237s & 1347.656s & 17 & 4 \\
+Benchmark-6 & \multicolumn{2}{c|}{TOO LONG} & 13 & 8 \\
+Benchmark-42 & \multicolumn{2}{c|}{TOO LONG} & 10  & 5 \\ 
+Benchmark-51 & \multicolumn{2}{c|}{TOO LONG} & 23 & 6 \\
+Benchmark 03 & 22.019s & 21.438s & 7 & 4 \\
+Benchmark 05 & 0.547s & 0.531s & 4 & 3 \\
+Benchmark R1 &\multicolumn{2}{c|}{TOO LONG} & 25 & 50 \\
+Benchmark R2 & \multicolumn{2}{c|}{TOO LONG} & 25 & 30 \\
+Benchmark\_1 & \multicolumn{2}{c|}{UNSATISFIABLE(5s)} & 10 & 3 \\ 
+Benchmark\_2 & \multicolumn{2}{c|}{UNSATISFIABLE(56s)} & 25 & 2 \\
+Benchmark\_3 & 92.768s & 92.250s & 10 & 3 \\
+Benchmark\_4 & 26.482s & 26.422s & 16 & 2 \\
+\end{tabular}
+
+\subsection{Marius Wawerek and Niklas Kämmer}
+\begin{tabular}[h]{l|c|c|c}
+Instance & Solving Time & Horizon & Robots \\
+Instance 1 & 0.049s & 5 & 2 \\
+Instance 5 & 0.060s  & 3 & 4 \\
+Instance 6 & 0.065s & 6 & 2 \\
+Instance 7 & 0.517s  & 9 & 8 \\
+bench\_test\_2 & 0.064s & 5 & 2 \\
+bench\_test\_3 & 0.046s & 4 & 2 \\
+bench\_test\_16\_mod1 & 0.075s & 6 & 4 \\
+Benchmark-5 & 0.794s & 11 & 4 \\
+Benchmark-6 & 0.534s & 9 & 8 \\
+Benchmark-42 & 0.723s & 10 & 5 \\ 
+Benchmark-51 & 0.577s & 21 & 6 \\
+Benchmark 03 & 0.078s & 5 & 4 \\
+Benchmark 05 & 0.038s & 4 & 3 \\
+Benchmark R1 & TOO LONG & 31 & 50 \\
+Benchmark R2 & TOO LONG & 57 & 30 \\
+Benchmark\_1 & 0.087 & 7 & 3 \\ 
+Benchmark\_2 & 1.575s & 19 & 2 \\
+Benchmark\_3 & 0.201s & 9 & 3 \\
+Benchmark\_4 & 0.269s & 15 & 2 \\
 \end{tabular}
 
 \end{document}

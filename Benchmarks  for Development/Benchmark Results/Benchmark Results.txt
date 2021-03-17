@@ -1,0 +1,64 @@
+| Instance Name   | Time     | CPU-Time | Horizon | c_nr (Conflicts) | Num Robot |
+| --------------  | -------- | -------- | ------- | ---------------- | --------- |
+| Own Benchmarks  | -------- | -------- | ------- | ---------------- | --------- |
+| Instance 1      |   0.125s | 0.109s   |   5     |        1         |    2      |
+| Instance 2      |   5.063s | 5.016s   |   10    |        3         |    4      |
+| Instance 3      |   2.672s | 2.641s   |   9     |        2         |    4      |
+| Instance 4      |   0.078s | 0.078s   |   2     |        0         |    4      |
+| Instance 5      |   0.484s | 0.469s   |   4     |        3         |    4      |
+| Instance 6      | 696.239s | 695.594s |   14    |        9         |    2      |
+| Instance 7      | 134.847s | 134.672s |   9     |        3         |    8      |
+
+
+| Instance Name      | Time    | CPU-Time | Horizon | c_nr (Conflicts) | Num Robot |
+| ------------------ | ------- | -------- | ------- | ---------------- | --------- |
+| Marcus F, Max W    | ------- | -------- | ------- | ---------------- | --------- |
+| bench_test_2       |  0.125s |  0.109s  |   7     |        1         |    2      |
+| bench_test_3       |  0.078s |  0.063s  |   4     |        1         |    2      |
+| bench_test_5       |  0.080s |  0.078s  |   5     |        1         |    2      |
+| bench_test_8       |  0.906s |  0.891s  |   12    |        3         |    2      |
+| bench_test_9       |  0.125s |  0.125s  |   5     |        2         |    2      |
+| bench_test_10      |  0.437s |  0.406s  |   7     |        2         |    3      |
+| bench_test_11      |  0.927s |  0.906s  |   9     |        2         |    3      |
+| bench_test_11_mod  |  0.784s |  0.781s  |   8     |        2         |    3      |
+| bench_test_12      |  0.204s |  0.203s  |   5     |        2         |    3      |
+| bench_test_13      |  0.152s |  0.141s  |   4     |        2         |    3      |
+| bench_test_14      |  0.813s |  0.813s  |   7     |        3         |    3      |
+| bench_test_14_mod2 |  0.828s |  0.828s  |   7     |        3         |    3      |
+| bench_test_15      |  0.360s |  0.359s  |   4     |        3         |    4      |
+| bench_test_15_mod  |  1.734s |  1.688s  |   9     |        3         |    4      |
+| bench_test_16      | 16.236s | 16.203s  |   8     |        5         |    4      |
+
+
+| Instance Name   | Time    | CPU-Time | Horizon | c_nr (Conflicts) | Num Robot |
+| --------------  | ------  | -------- | ------- | ---------------- | --------- |
+| Marius, Niklas  | ------  | -------- | ------- | ---------------- | --------- |
+| Center-Conflict | 0.072s  | 0.063s   |   3     |        1         |    2      |
+| Conflict-Square | 0.203s  | 0.203s   |   6     |        2         |    2      |
+| Corridor        | 0.204s  | 0.188s   |   8     |        2         |    2      |
+| Other Side      | 2.073s  | 1.766s   |   10    |        2         |    3      |
+| Limited Moves   |    UNSATISFIABLE   |   -     |        -         |    4      |
+
+Additional information about the unsatisfiable instance "Limited Moves":
+I tried to solve the instance with just robots 1 and 2 which makes it a similar problem to instance 6 
+of my own benchmarks. The parameters I tried were horizon=17 and c_nr=7. Since the instance should work similar 
+to instance 6, these parameters should allow the solver to find a solution but it returned UNSATISFIABLE after 
+100.266 seconds. I also tried it with higher parameters but it didn't work, even with horizon=20 and c_nr=15.
+
+| Instance Name     | Time    | CPU-Time | Horizon | c_nr (Conflicts) | Num Robot |
+| ----------------- | ------  | -------- | ------- | ---------------- | --------- |
+|     Tarek R       | ------  | -------- | ------- | ---------------- | --------- |
+| forced_waiting    | 0.264s  | 0.266s   |   9     |        2         |    2      |
+| forced_waiting_v2 | 2.984s  | 2.953s   |   16    |        4         |    2      |
+| moving_obstacles  | 8.172s  | 7.891s   |   11    |        2         |    4      |
+
+
+| Instance Name   | Time    | CPU-Time | Horizon | c_nr (Conflicts) | Num Robot |
+| --------------  | ------  | -------- | ------- | ---------------- | --------- |
+|    Tom, Julian, Hannes    | -------- | ------- | ---------------- | --------- |
+| Instance 1      |  0.120s |  0.125s  |   5     |        1         |    2      |
+| Instance 2      |  0.078s |  0.078s  |   4     |        1         |    2      |
+| Instance 3      | 16.681s | 16.656s  |   7     |        5         |    4      |
+| Instance 4      |  0.625s |  0.625s  |   5     |        2         |    4      |
+| Instance 5      |  0.089s |  0.063s  |   4     |        1         |    3      |
+| Instance 6      |  0.547s |  0.547s  |   11    |        3         |    2      |

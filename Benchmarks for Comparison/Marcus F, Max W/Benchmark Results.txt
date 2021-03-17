@@ -1,0 +1,25 @@
+| Instance Name      | Time      | CPU-Time  | Horizon | Num Robot |
+| ------------------ | --------- | --------- | ------- |---------- |
+| Instance 1         |    1.672s |    1.656s |    5    |     2     |
+| Instance 5         |   UNSATISFIABLE(42s)  |    10   |     4     |
+| Instance 6         |    9.947s |    9.766s |    14   |     2     |
+| Instance 7         |        TOO LONG       |    9    |     8     |
+| bench_test_2       |    3.361s |    3.172s |    7    |     2     |
+| bench_test_3       |    0.437s |    0.422s |    4    |     2     |
+| bench_test_16_mod1 |   20.751s |   20.703s |    9    |     4     |
+| Benchmark-5        | 1398.237s | 1347.656s |    17   |     4     |
+| Benchmark-6        |        TOO LONG       |    13   |     8     |
+| Benchmark-42       |        TOO LONG       |    10   |     5     |
+| Benchmark-51       |        TOO LONG       |    23   |     6     |
+| Benchmark 03       |   22.019s |   21.438s |    7    |     4     |
+| Benchmark 05       |    0.547s |    0.531s |    4    |     3     |
+| Benchmark R1       |        TOO LONG       |    25   |     50    |
+| Benchmark R2       |        TOO LONG       |    25   |     30    |
+| Benchmark_1        |   UNSATISFIABLE(5s)   |    10   |     3     |
+| Benchmark_2        |   UNSATISFIABLE(56s)  |    25   |     2     |
+| Benchmark_3        |   92.768s |   92.250s |    10   |     3     |
+| Benchmark_4        |   26.482s |   26.422s |    16   |     2     |
+
+
+TOO LONG means the solver needed more than half an hour to solve the instance. 
+After that time, I stopped the solver.

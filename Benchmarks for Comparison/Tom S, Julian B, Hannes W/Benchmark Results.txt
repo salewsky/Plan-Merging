@@ -1,0 +1,24 @@
+| Instance Name      | Solving Time (Single Instance) | Horizon |  Num Robot |
+| ------------------ | ------------------------------ | ------- | ---------- |
+| Instance 1         |              0.066s            |   5     |     2      |
+| Instance 5         |              0.060s            |   3     |     4      |
+| Instance 6         |              0.110s            |   8     |     2      |
+| Instance 7         |              0.710s            |   11    |     8      | 
+| bench_test_2       |          UNSATISFIABLE (60s)   |   20    |     2      |
+| bench_test_3       |              0.071s            |   6     |     2      |
+| bench_test_16_mod1 |              0.231s            |   8     |     4      |
+| Benchmark-5        |              0.474s            |   13    |     4      |
+| Benchmark-6        |              2.157s            |   12    |     8      | 
+| Benchmark-42       |              0.112s            |   11    |     5      |
+| Benchmark-51       |              1.712s            |   23    |     6      |
+| Benchmark 03       |              0.192s            |   7     |     4      |
+| Benchmark 05       |              0.045s            |   5     |     3      |
+| Benchmark R1       |            278.224s            |   29    |     50     |
+| Benchmark R2       |            255.805s            |   62    |     30     |
+| Benchmark_1        |          UNSATISFIABLE (5s)    |   15    |     3      |
+| Benchmark_2        |          UNSATISFIABLE (83s)   |   25    |     2      |
+| Benchmark_3        |              0.212s            |   11    |     3      |
+| Benchmark_4        |              0.437s            |   15    |     2      |
+
+Instance 7 and Benchmark-6 return a solution. In these solutions however, not all robots
+are on their goal node.
