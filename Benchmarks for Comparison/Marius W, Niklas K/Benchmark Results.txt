@@ -13,7 +13,7 @@
 | Benchmark-51       |              0.577s            |   21    |     6      |
 | Benchmark 03       |              0.078s            |   5     |     4      |
 | Benchmark 05       |              0.038s            |   4     |     3      |
-| Benchmark R1       |            TOO LONG            |   31    |     50     |
+| Benchmark R1       |            TOO LONG            |   23    |     50     |
 | Benchmark R2       |            TOO LONG            |   57    |     30     |
 | Benchmark_1        |              0.087s            |   7     |     3      |
 | Benchmark_2        |              1.575s            |   19    |     2      |

@@ -14,30 +14,24 @@
 supervised by\par
 Etienne Tignon
 \vfill
-{24.03.2021 \par}
+{23.03.2021 \par}
 
 
 \begin{abstract}
-The asprilo framework was created to make plans for robots in a warehouse. It uses the language Answer Set Programming
-which is a good choice for such a problem because this language was made for solving NP-hard problems. The solution works 
-well for a small number of robots but at some point the computation time gets too high. This is why the idea came up to create plans
-for a small number of robots and then combine the plans to get a working solution. This paper shows my approach on how to solve
-the plan merging problem.
+This paper shows my approach to solving the plan merging problem in multi-agent path finding. This means that plans for single robots are combined to a plan for all robots. During the merging, all arising conflicts must be dealt with. This was done for a project
+at the University of Potsdam in the course Computational Intelligence for the chair Computational Intelligence. The project was done in the asprilo framework with the programming language Answer Set Programming. 
 \end{abstract}
 \end{titlepage}
 
 
 \section{Introduction}
-The asprilo framework is used to make plans for robots in a warehouse, i.e. when does a robot pick up or shelf or when does a robot move which way \cite{asprilo}. 
-It uses the language Answer Set Programming (ASP). Since there is no order in which ASP computes things, the predicates which describe the actions of robots and
-the positions of objects contain an argument $T$ which declares at which time step the predicate holds. This project was done in the M-domain of the asprilo framework.
-In the M-domain, the goal is to have a robot under each shelf that contains an ordered product at the last time step (the last time step is called horizon). This domain simplifies the framework 
-to Multi-Agent Path Finding (MAPF). The framework works well for a small number of robots but for a high number of robots, the computation time gets too high. This is
-why the idea came up to combine plans for a small number of robots to a plan for all the robots. During the combining of these plans, all the conflicts that arise between 
-robots must be solved. This paper shows my approach on how to solve this plan merging problem in ASP. The solver I used is ``clingo 5.4.0''.In the following section, I will show my general idea on how to solve 
-conflicts. In the section after that, I will show my ASP encoding and explain its functions. Section 4 contains the analysis on the efficiency of my solution. The comparison of my approach with that of other groups that have
-been working on the same project is shown in section 5. I will end my paper with a conclusion. \\
-My solution as well as the used benchmarks can be found in my github repository \cite{owngithub}.
+The multi-agent path finding (MAPF) problem deals with multiple agents that have to find their way to a goal. This paper deals with the problem of having plans for single robots and combining them to a plan that contains all robots. During the merging of the plans, arising conflicts must be solved. The solution presented in this paper uses the asprilo framework by potassco \cite{asprilo}, the language Answer Set Programming (ASP) and the solver clingo 5.4.0. More details on the asprilo framework will be given in the next section. Section 3 contains my idea on how to theoretically solve the plan merging problem. In the section after that, I will show my ASP encoding. Sections 5 and 6 contain the analysis of my solution as well as comparing my approach to approaches of other groups that have worked on the same problem. I will end my paper with a conclusion. My solution as well as the used benchmarks can be found in my github repository \cite{owngithub}.
+
+
+\section{The asprilo framework}
+The asprilo framework deals with robots in a warehouse. The framework has several domains. The ``M-Domain'' is the one that simplifies the problem to MAPF. The goal is that at the last time step (called horizon) all shelves containing an ordered product have a robot under them. This is done by finding plans for the robots in which they move to a shelf in the designated time. The asprilo framework uses ASP. This means the plans are created by using predicates and rules. The predicate stating when and how a robot moves is $move(R,D,T)$ with R being the robot, D being the direction it moves in and T being the time step at which the robot moves. To track the positions of robots the predicate $position(R,C,T)$ is used. R is the robot again, C is the node the robot is positioned on and T is the time step again. The $position$ predicate is also used for shelves. The resulting plan is shown in the form $occurs(object(robot,R),action(move,D),T)$. The arguments are the same as in the $move$ predicate. It is simply another form of representing them. \\
+There is also a visualizer for this framework. It is used to see how the found solution works. Images shown in this paper are screenshots taken from the visualizer.
+Since the plan merging problem uses the plans of single robots, the asprilo framework was used to create these plans. The visualizer was used to verify the correctness of the solutions.
 
 
 \section{Idea}
@@ -236,9 +230,9 @@ To summarize, my approach is time inefficient but it seems to be able to solve m
 
 
 \section{Comparison with other Approaches}
-There are 4 other groups that have worked on the same problem. In the appendix, the benchmark results of every solution can be found. \\
+There are 4 other groups that have worked on the same problem. In the appendix, the benchmark results of every solution can be found. For the group consisting of Marius Wawerek and Niklas Kämmer as well as the group consisting of Tom Schmidt, Hannes Weichelt and Jullian Bruns, I have used the python program created by the group of three. The program iteratively finds the minimal horizon for the used merger. \\
 The solution of Tarek Ramadan \cite{github1} is able to solve most instances in a short time. The instances with 30 and 50 robots take too long for his solution as well. There are two instances his approach could not solve. Both of these were solvable by my approach. This means, his approach is generally faster but has problems with different instances. \\
-The approach of Tom Schmidt, Hannes Weichelt and Julian Bruns \cite{github2} is very fast in the instances it can solve. It is the only approach that can solve the instances with 50 and 30 robots in the designated time frame. The downside is that there are three instances that are unsatisfiable. Benchmark\_1 (the circular shape) is one of them. Another unsolvable instance is the one where the robots have to move away from their original path together which seems to be a problem for this approach. The third unsatisfiable instance is a rather simple problem with only one conflict which makes it weird that it cannot be solved. Apart from the unsolvable instances, there are two instances where the solver finds solutions in the given horizon but these solutions have one robot next to their goal node which makes the solution wrong.  The approach of this group seems to be very fast. The downside to it is that it is unreliable since there are some unsolvable instances and the found solutions are not always correct.  \\
+The approach of Tom Schmidt, Hannes Weichelt and Julian Bruns \cite{github2} is very fast in the instances it can solve. It is the only approach that can solve the instances with 50 and 30 robots in the designated time frame. The downside is that there are three instances that are unsatisfiable. Benchmark\_1 (the circular shape) is one of them. Another unsolvable instance is the one where the robots have to move away from their original path together which seems to be a problem for this approach. The third unsatisfiable instance is a rather simple problem with only one conflict which makes it weird that it cannot be solved. The approach of this group seems to be very fast. The downside to it is that it cannot solve some instances.  \\
 The solution of Marcus Funke and Maximilian Wiedenhöft \cite{github3} seems to have problems similar to mine. It is very time inefficient. Furthermore, there are three instances that cannot be solved. One of those instances is Benchmark\_1 which my approach could not solve either. Their solution can however solve the other instance mine could not. To summarize, their approach is time inefficient as well and there is a similar amount of instances it cannot solve. \\
 The solution of Marius Wawerek and Niklas Kämmer \cite{github4} has very short solution times for most instances. The only instances that could not be solved in the designated time were the ones with 30 and 50 robots. There is no instance that is unsolvable. It seems to be the best solution for solving small instances. There does not seem to be any instance it cannot solve. The only problem is that the solving time rises too high if there are too many robots.
 
@@ -297,7 +291,7 @@ https://github.com/NikKaem/mapf-project
 \section{Benchmark Results}
 The solver was interrupted after a solving time of half an hour. If the solver needed more time than that,
 the solving time is shown as ``TOO LONG''. The solver did not find a solution if these instances were tested with smaller parameters. The instances that were ``UNSATISFIABLE'' are the ones that are unlikely to return a solution even when using
-higher parameters. 
+higher parameters. ``Unlikely'' means that the approach the group took is not able to theoretically solve the instance. 
 
 \subsection{My Solver}
 \begin{tabular}[h]{l|c|c|c|c|c}
@@ -348,25 +342,22 @@ Benchmark\_4 & 0.298s & 0.281s & 15 & 8 & 2 \\
 \end{tabular}
 
 \subsection{Tom Schmidt, Hannes Weichelt and Julian Bruns}
-Instance 7 and Benchmark-6 return a solution. In these solutions however, not all robots
-are on their goal node which means they are wrong. \\
-\\
 \begin{tabular}[h]{l|c|c|c}
 Instance & Solving Time & Horizon & Robots \\
 Instance 1 & 0.066s & 5 & 2 \\
 Instance 5 & 0.060s  & 3 & 4 \\
 Instance 6 & 0.110s & 8 & 2 \\
-Instance 7 & 0.710s  & 11 & 8 \\
+Instance 7 & 0.851s  & 10 & 8 \\
 bench\_test\_2 & UNSATISFIABLE(60s) & 20 & 2 \\
 bench\_test\_3 & 0.071s & 6 & 2 \\
 bench\_test\_16\_mod1 & 0.231s & 8 & 4 \\
 Benchmark-5 & 0.474s & 13 & 4 \\
-Benchmark-6 & 2.157s & 12 & 8 \\
+Benchmark-6 & 3.409s & 13 & 8 \\
 Benchmark-42 & 0.112s & 11 & 5 \\ 
 Benchmark-51 & 1.712s & 23 & 6 \\
 Benchmark 03 & 0.192s & 7 & 4 \\
 Benchmark 05 & 0.045s & 5 & 3 \\
-Benchmark R1 & 278.224s & 29 & 50 \\
+Benchmark R1 & 184.887s & 23 & 50 \\
 Benchmark R2 & 255.805s & 62 & 30 \\
 Benchmark\_1 & UNSATISFIABLE(5s) & 15 & 3 \\ 
 Benchmark\_2 & UNSATISFIABLE(83s) & 25 & 2 \\
@@ -417,7 +408,7 @@ Benchmark-42 & 0.723s & 10 & 5 \\
 Benchmark-51 & 0.577s & 21 & 6 \\
 Benchmark 03 & 0.078s & 5 & 4 \\
 Benchmark 05 & 0.038s & 4 & 3 \\
-Benchmark R1 & TOO LONG & 31 & 50 \\
+Benchmark R1 & TOO LONG & 23 & 50 \\
 Benchmark R2 & TOO LONG & 57 & 30 \\
 Benchmark\_1 & 0.087 & 7 & 3 \\ 
 Benchmark\_2 & 1.575s & 19 & 2 \\
