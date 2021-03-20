@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.30)  14 MAR 2021 14:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.30)  20 MAR 2021 12:26
 entering extended mode
 **./slides.tex
 (slides.tex
@@ -1089,9 +1089,111 @@ c) [2
 ]
 [6
 
-] [7
+]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
+
+
+("C:\Users\Adrian\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
+
+ ("C:\Users\Adrian\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd
+"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
+ut line 42.
+
+("C:\Users\Adrian\AppData\Local\Programs\MiKTeX 2.9\tex/latex/sansmathaccent\ot
+1mathkerncmss.fd"
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
+thkerncmss.
+) [7
 
 ] [8
+
+] [9
+
+] [10
+
+]
+<Images/Conflict 1_1.png, id=81, 648.92438pt x 392.21532pt>
+File: Images/Conflict 1_1.png Graphic file (type png)
+<use Images/Conflict 1_1.png>
+Package pdftex.def Info: Images/Conflict 1_1.png  used on input line 56.
+(pdftex.def)             Requested size: 122.91406pt x 74.28827pt.
+<Images/Conflict 1_2.png, id=82, 648.17157pt x 396.7322pt>
+File: Images/Conflict 1_2.png Graphic file (type png)
+<use Images/Conflict 1_2.png>
+Package pdftex.def Info: Images/Conflict 1_2.png  used on input line 56.
+(pdftex.def)             Requested size: 122.91406pt x 75.22855pt.
+ [11
+
+ <./Images/Conflict 1_1.png> <./Images/Conflict 1_2.png>]
+<Images/Conflict 2.png, id=88, 754.31813pt x 475.7775pt>
+File: Images/Conflict 2.png Graphic file (type png)
+<use Images/Conflict 2.png>
+Package pdftex.def Info: Images/Conflict 2.png  used on input line 63.
+(pdftex.def)             Requested size: 213.39566pt x 134.59613pt.
+ [12
+
+ <./Images/Conflict 2.png>] [13
+
+] [14
+
+] [15
+
+] [16
+
+]
+<Images/Instance 1.png, id=113, 395.97937pt x 388.45125pt>
+File: Images/Instance 1.png Graphic file (type png)
+<use Images/Instance 1.png>
+Package pdftex.def Info: Images/Instance 1.png  used on input line 81.
+(pdftex.def)             Requested size: 213.39566pt x 209.3397pt.
+ [17
+
+ <./Images/Instance 1.png>]
+<Images/Instance 2.png, id=120, 293.59688pt x 465.23813pt>
+File: Images/Instance 2.png Graphic file (type png)
+<use Images/Instance 2.png>
+Package pdftex.def Info: Images/Instance 2.png  used on input line 88.
+(pdftex.def)             Requested size: 213.39566pt x 338.15152pt.
+
+Overfull \vbox (108.4143pt too high) detected at line 88
+ []
+
+[18
+
+ <./Images/Instance 2.png>]
+<Images/Instance 3.png, id=126, 528.47438pt x 157.33781pt>
+File: Images/Instance 3.png Graphic file (type png)
+<use Images/Instance 3.png>
+Package pdftex.def Info: Images/Instance 3.png  used on input line 95.
+(pdftex.def)             Requested size: 213.39566pt x 63.5318pt.
+ [19
+
+ <./Images/Instance 3.png>] [20
+
+] [21
+
+]
+[22
+
+] [23
+
+] [24
+
+] [25
+
+] [26
+
+] [27
+
+] [28
+
+] [29
 
 ]
 \tf@nav=\write6
@@ -1104,24 +1206,32 @@ c) [2
 \openout8 = `slides.snm'.
 
  (slides.aux)
-Package rerunfilecheck Info: File `slides.out' has not changed.
-(rerunfilecheck)             Checksum: FE9D78D1814F2FF771A84E822EAA7C86;207.
+
+Package rerunfilecheck Warning: File `slides.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `slides.out':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  FA38F99D299C0B8CFA239914B655BA1F;202.
  ) 
 Here is how much of TeX's memory you used:
- 19125 strings out of 479662
- 368488 string characters out of 2863093
- 648499 words of memory out of 3000000
- 35776 multiletter control sequences out of 15000+200000
- 405242 words of font info for 33 fonts, out of 3000000 for 9000
+ 19332 strings out of 479662
+ 373099 string characters out of 2863093
+ 648365 words of memory out of 3000000
+ 35912 multiletter control sequences out of 15000+200000
+ 410180 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  125i,11n,126p,413b,601s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmss10.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmss12.pfb><C:/Users/Adrian/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmss8.pfb>
-Output written on slides.pdf (8 pages, 45237 bytes).
+9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/Adrian/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/Adrian/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on slides.pdf (29 pages, 139972 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 217 PDF objects out of 1000 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
+ 85 words of extra memory for PDF output out of 10000 (max. 10000000)
 
