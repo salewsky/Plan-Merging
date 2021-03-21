@@ -1,4 +1,4 @@
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Solution}{7}{0}{2}
-\beamer@sectionintoc {3}{Comparison with other Approaches}{17}{0}{3}
-\beamer@sectionintoc {4}{Conclusion}{25}{0}{4}
+\beamer@sectionintoc {2}{Solution}{12}{0}{2}
+\beamer@sectionintoc {3}{Comparison with other Approaches}{23}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{31}{0}{4}

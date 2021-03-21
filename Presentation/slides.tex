@@ -26,18 +26,38 @@
 \frametitle{Introduction}
 \begin{itemize}
 \item<2-> Combining plans for single robots
+\medskip
 \item<3-> Used the asprilo framework and ASP
-\item<4-> Plans created with asprilo
+\medskip
+\item<4-> M-Domain of asprilo
+\medskip
+\item<5-> Visualizer used for testing
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+\item<2-> Input: $occurs(object(robot,R),action(move,D),T)$
+\bigskip
+\item<3-> Move predicates: $move(R,D,T)$
+\bigskip
+\item<4-> Position predicates: $position(R,C,T)$
+\end{itemize}
+\end{frame}
+
 
 \section{Solution}
 \begin{frame}
 \frametitle{Renaming of Predicates}
 \begin{itemize}
 \item<2-> New names needed for every plan
+\bigskip
 \item<3-> $\rightarrow$ New argument for every predicate: $conflict\_nr$ 
+\bigskip
 \item<4-> Higher $conflict\_nr$ $\rightarrow$ newer plan
+\bigskip
+\item<5-> $move(R,D,T)$ $\rightarrow$ $move(R,D,T,A)$
 \end{itemize}
 \end{frame}
 
@@ -67,7 +87,9 @@
 \frametitle{Conflict Solving}
 \begin{itemize}
 \item<2-> Randomly dodge in any possible direction or wait
-\item<3-> Wait: remaining plan gets pushed one step back
+\bigskip
+\item<3-> Wait: remaining plan gets pushed back one step 
+\bigskip
 \item<4-> Dodge: go back at random time step  
 \end{itemize}
 \end{frame}
@@ -83,7 +105,7 @@
 \begin{frame}
 \frametitle{Unsolvable Benchmarks}
 \begin{figure}
-\includegraphics[width=75mm]{Images/Instance 2}
+\includegraphics[width=50mm]{Images/Instance 2}
 \end{figure}
 \end{frame}
 
@@ -98,8 +120,11 @@
 \frametitle{Comparison with other Approaches}
 \begin{itemize}
 \item<2-> Very time inefficient
+\medskip
 \item<3-> Most other approaches found more efficient solutions
+\medskip
 \item<4-> Solves most instances
+\medskip
 \item<5-> One other approach better in every way
 \end{itemize}
 \end{frame}
@@ -109,8 +134,11 @@
 \frametitle{Conclusion}
 \begin{itemize}
 \item<2-> Combining plans of single robots
+\medskip
 \item<3-> Randomly solve arising conflicts
+\medskip
 \item<4-> Time inefficient
+\medskip
 \item<5-> Solves most instances
 \end{itemize}
 \end{frame}
